@@ -15,7 +15,7 @@
 # limitations under the License.
 
 # Made Compatible with Gesis by adding tag explicitely
-FROM ubuntu:17.10
+FROM ubuntu:18.04
 MAINTAINER ikeyasu <ikeyasu@gmail.com>
 
 # Added user 'joyvan' with uid 1000
