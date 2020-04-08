@@ -200,6 +200,9 @@ ENV LD_PRELOAD /usr/lib/x86_64-linux-gnu/libtcmalloc.so.4
 RUN /datalab/run.sh
 ENV HOME /content
 
+# Add user named jupyterlab with root privs.
+RUN useradd jupyterlab && adduser jupyterlab root
+
 # Add Tini
 ENV TINI_VERSION v0.17.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
