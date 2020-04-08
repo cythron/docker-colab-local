@@ -14,8 +14,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM ubuntu:17.10
+# Made Compatible with Gesis by adding tag explicitely
+FROM ubuntu:e211a66937c6
 MAINTAINER ikeyasu <ikeyasu@gmail.com>
+
+# Added user 'joyvan' with uid 1000
+ARG NB_USER=jovyan
+ARG NB_UID=1000
+ENV USER ${NB_USER}
+ENV NB_UID ${NB_UID}
+ENV HOME /home/${NB_USER}
+RUN adduser --gecos "Default user" --uid ${NB_UID} ${NB_USER}
+
+# Added Compatibility
+COPY . ${HOME}
+USER root
+RUN chown -R ${NB_UID} ${HOME}
+USER ${NB_USER}
+
 
 # Container configuration
 EXPOSE 8081
@@ -202,6 +218,12 @@ ENV HOME /content
 
 # Add user named jupyterlab with root privs.
 RUN useradd jupyterlab && adduser jupyterlab root
+
+# Make it compatible with Gesis
+RUN pip install --no-cache-dir notebook
+RUN pip install jupyterlab
+
+
 
 # Add Tini
 ENV TINI_VERSION v0.17.0
